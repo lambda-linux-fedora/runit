@@ -80,15 +80,25 @@ echo %{_unitdir}/runsvdir-start.service > %{EXTRA_FILES}
 
 %post
 if [ $1 = 1 ] ; then
-  systemctl enable runsvdir-start
-  systemctl start runsvdir-start
+  # start daemon if we are not in a chroot
+  if test -f /proc/1/exe -a -d /proc/1/root; then
+    if test "$(/usr/bin/stat -Lc '%D-%i' /)" = "$(/usr/bin/stat -Lc '%D-%i' /proc/1/root)"; then
+      systemctl enable runsvdir-start
+      systemctl start runsvdir-start
+    fi
+  fi
 fi
 
 %preun
 if [ $1 = 0 ]; then
-  if [ -f /usr/lib/systemd/system/runsvdir-start.service ]; then
-    systemctl stop runsvdir-start
-    systemctl disable runsvdir-start
+  # stop daemon if we are not in a chroot
+  if test -f /proc/1/exe -a -d /proc/1/root; then
+    if test "$(/usr/bin/stat -Lc '%D-%i' /)" = "$(/usr/bin/stat -Lc '%D-%i' /proc/1/root)"; then
+      if [ -f /usr/lib/systemd/system/runsvdir-start.service ]; then
+        systemctl stop runsvdir-start
+        systemctl disable runsvdir-start
+      fi
+    fi
   fi
 fi
 
