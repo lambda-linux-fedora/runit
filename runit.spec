@@ -18,12 +18,16 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Url:            http://smarden.org/runit/
 Source0:        http://smarden.org/runit/runit-%{version}.tar.gz
 Source1:        runsvdir-start.service
+Source2:        template-log
+Source3:        template-run
 Patch:          runit-2.1.2-etc-service.patch
 Patch1:         runit-2.1.2-runsvdir-path-cleanup.patch
 Patch2:         runit-2.1.2-term-hup-option.patch
 
 Obsoletes: runit <= %{version}-%{release}
 Provides: runit = %{version}-%{release}
+
+Requires:       bash
 
 BuildRequires: make gcc
 BuildRequires:  glibc-static
@@ -77,6 +81,10 @@ install -d %{buildroot}%{_sysconfdir}/%{name}
                        $RPM_BUILD_ROOT%{_unitdir}/runsvdir-start.service
 echo %{_unitdir}/runsvdir-start.service > %{EXTRA_FILES}
 
+install -d %{buildroot}%{_defaultdocdir}/%{name}/template
+install -D -m 0755 %{SOURCE2} %{buildroot}%{_defaultdocdir}/%{name}/template/log
+install -D -m 0755 %{SOURCE3} %{buildroot}%{_defaultdocdir}/%{name}/template/run
+
 %clean
 %{__rm} -rf %{buildroot}
 
@@ -119,6 +127,7 @@ fi
 %{_mandir}/man8/*.8*
 %doc doc/* etc/
 %doc package/CHANGES package/COPYING package/README package/THANKS package/TODO
+%{_defaultdocdir}/%{name}/template/*
 %dir /etc/service
 %dir %{_sysconfdir}/%{name}
 
