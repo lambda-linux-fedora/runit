@@ -1,3 +1,5 @@
+%define _ll_buildid .1
+
 #
 # spec file for package runit (Version 2.1.2)
 #
@@ -5,7 +7,7 @@
 
 Name:           runit
 Version:        2.1.2
-Release:        1%{?dist}
+Release:        1%{?_ll_buildid}%{?dist}
 
 Group:          System/Base
 License:        BSD
