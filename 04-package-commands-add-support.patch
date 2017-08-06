@@ -1,0 +1,21 @@
+package/commands: Add support for `runit-pause`
+
+From: Rajiv M Ranganath <rajiv.ranganath@atihita.com>
+
+
+---
+ package/commands |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/package/commands b/package/commands
+index 043d245..6dc2081 100644
+--- a/package/commands
++++ b/package/commands
+@@ -1,6 +1,7 @@
+ chpst
+ runit
+ runit-init
++runit-pause
+ runsv
+ runsvchdir
+ runsvdir

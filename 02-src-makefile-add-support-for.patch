@@ -1,0 +1,39 @@
+src/Makefile: Add support for `runit-pause`
+
+From: Rajiv M Ranganath <rajiv.ranganath@atihita.com>
+
+
+---
+ src/Makefile |    8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index d9624de..387be92 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,4 +1,4 @@
+-IT=chpst runit runit-init runsv runsvchdir runsvdir sv svlogd utmpset
++IT=chpst runit runit-init runit-pause runsv runsvchdir runsvdir sv svlogd utmpset
+ 
+ default: sysdeps $(IT)
+ 
+@@ -11,6 +11,9 @@ runit: load runit.o unix.a byte.a
+ runit-init: load runit-init.o unix.a byte.a
+ 	./load runit-init unix.a byte.a -static
+ 
++runit-pause: load runit-pause.o
++	./load runit-pause -static
++
+ runsv: load runsv.o unix.a byte.a time.a
+ 	./load runsv unix.a byte.a time.a
+ 
+@@ -51,6 +54,9 @@ runit.o: compile sysdeps runit.c
+ runit-init.o: compile runit-init.c
+ 	./compile runit-init.c
+ 
++runit-pause.o: compile runit-pause.c
++	./compile runit-pause.c
++
+ runsv.o: compile sysdeps runsv.c
+ 	./compile runsv.c
+ 

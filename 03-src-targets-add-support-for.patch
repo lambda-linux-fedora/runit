@@ -1,0 +1,30 @@
+src/TARGETS: Add support for `runit-pause`
+
+From: Rajiv M Ranganath <rajiv.ranganath@atihita.com>
+
+
+---
+ src/TARGETS |    3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/TARGETS b/src/TARGETS
+index 46981ce..188fb85 100644
+--- a/src/TARGETS
++++ b/src/TARGETS
+@@ -2,6 +2,8 @@ runit
+ runit.o
+ runit-init
+ runit-init.o
++runit-pause
++runit-pause.o
+ runsv
+ runsv.o
+ runsvdir
+@@ -130,6 +132,7 @@ wait_nohang.o
+ wait_pid.o
+ chpst.local
+ runit-init.local
++runit-pause.local
+ runit.local
+ runsv.local
+ runsvchdir.local
