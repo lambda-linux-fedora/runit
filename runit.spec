@@ -24,6 +24,12 @@ Patch:          runit-2.1.2-etc-service.patch
 Patch1:         runit-2.1.2-runsvdir-path-cleanup.patch
 Patch2:         runit-2.1.2-term-hup-option.patch
 
+# Lambda Linux Patches
+Patch1001:      01-src-runit-pause-c-add.patch
+Patch1002:      02-src-makefile-add-support-for.patch
+Patch1003:      03-src-targets-add-support-for.patch
+Patch1004:      04-package-commands-add-support.patch
+
 Obsoletes: runit <= %{version}-%{release}
 Provides: runit = %{version}-%{release}
 
@@ -57,6 +63,12 @@ popd
 %patch
 %patch1
 %patch2
+
+# Lambda Linux Patches
+%patch1001 -p1
+%patch1002 -p1
+%patch1003 -p1
+%patch1004 -p1
 
 %build
 sh package/compile
@@ -117,6 +129,7 @@ fi
 %{_sbindir}/chpst
 %{_sbindir}/runit
 %{_sbindir}/runit-init
+%{_sbindir}/runit-pause
 %{_sbindir}/runsv
 %{_sbindir}/runsvchdir
 %{_sbindir}/runsvdir
